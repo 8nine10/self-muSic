@@ -20,7 +20,7 @@ const Home = () => {
   }, [dispatch]);
 
   const { songs, likedSongs, topSongs } = useSelector((state) => state.song);
-
+  
   if (loading) {
     return <p className='text-light-1'>Loading...</p>; // Show loading indicator while fetching data
   }

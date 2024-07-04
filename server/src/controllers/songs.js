@@ -89,20 +89,57 @@ export const fetchTopSongs = async (req, res) => {
     try {
         const limit = 5;
         const skipAmount = (page - 1) * limit;
-        const songsQuery = Song.find()
-            .skip(skipAmount)
-            .limit(limit)
-            .populate({
-                path: 'artist',
-                model: User,
-                select: 'username',
-            });
-        const songs = await songsQuery.exec();
-        
-        // Sort songs by the length of the likes array in descending order
-        const sortedSongs = songs.sort((a, b) => b.likes.length - a.likes.length);
+        //from ChatGPT...
+        const songsQuery = Song.aggregate([
+            // Add a field for the length of the likes array
+            {
+                $addFields: {
+                    likesCount: { $size: "$likes" }
+                }
+            },
+            // Sort by the likesCount field in descending order
+            {
+                $sort: { likesCount: -1 }
+            },
+            // Skip the appropriate amount for pagination
+            {
+                $skip: skipAmount
+            },
+            // Limit the number of results
+            {
+                $limit: limit
+            },
+            // Lookup artist information
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'artist',
+                    foreignField: '_id',
+                    as: 'artist'
+                }
+            },
+            // Unwind the artist array to get a single object
+            {
+                $unwind: "$artist"
+            },
+            // Project the desired fields
+            {
+                $project: {
+                    _id: 1,
+                    songName: 1,
+                    artist: { username: 1 },
+                    likes: 1,
+                    likesCount: 1,
+                    coverImgURL: 1,
+                    songURL: 1,
+                    createdAt: 1
+                }
+            }
+        ]);
+
+        const sortedSongs = await songsQuery.exec();
         const totalSongs = await Song.countDocuments();
-        const isNext = totalSongs > skipAmount + songs.length;
+        const isNext = totalSongs > skipAmount + sortedSongs.length;
         res.status(200).json({ sortedSongs, isNext });
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong', error });

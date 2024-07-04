@@ -20,7 +20,10 @@ const SongTile = ({ song, playlistCreate = false }) => {
   };
 
   return (
-    <div className='flex flex-col items-start justify-start p-2' onClick={handlePlay}>
+    <div 
+      className='flex flex-col items-start justify-start p-2 w-24 md:w-48' 
+      onClick={handlePlay}
+    >
       <div className='h-24 w-24 md:h-48 md:w-48 mb-2'>
         <img
           src={song.coverImgURL || '/muSic.svg'}
