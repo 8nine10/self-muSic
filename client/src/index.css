@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /*main*/
+  .main-container {
+    @apply flex flex-1 flex-col min-h-screen bg-dark-1 px-6 pb-10 pt-28 max-md:pb-32 sm:px-10 overflow-auto;
+  }
+  .topbar {
+    @apply flex flex-1 flex-row top-0 z-30 w-full items-center fixed justify-between bg-dark-2 px-6 py-3;
+  }
+  .bottombar {
+    @apply fixed bottom-0 z-10 w-full rounded-md bg-dark-2 p-2 xs:px-7 md:hidden;
+  }
+  .player {
+    @apply fixed max-md:bottom-14 md:bottom-0 z-20 w-full rounded-md bg-dark-2 p-1;
+  }
+  .bottombar_container{
+    @apply flex items-center justify-evenly gap-3 xs:gap-5;
+  }
+  .bottombar_link {
+    @apply relative flex flex-col items-center gap-2 rounded-lg p-2 sm:flex-1 sm:px-2 sm:py-2.5;
+  }
+  .rightbar {
+    @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r-dark-4 bg-dark-2 pb-5 pt-28 pr-10 max-md:hidden;
+  }
+  .rightbar_link {
+    @apply relative flex justify-start gap-4 rounded-md p-4;
+  }
+  .logo {
+    @apply text-primary-500 text-heading2-bold;
+  }
+  .text-input {
+    @apply h-full w-full text-base-regular rounded border border-dark-4 bg-dark-4 text-light-1 p-2;
+  }
+  .image-input {
+    @apply cursor-pointer border-none bg-transparent outline-none h-0 w-0;
+  }
+  .form-button {
+    @apply rounded-xl bg-primary-500 px-8 py-3 mt-3 text-light-1 max-xs:w-full;
+  }
+  .form-error {
+    @apply rounded-sm bg-primary-500 px-1 py-1 text-light-1 max-xs:w-full;
+  }
+  .searchbar {
+    @apply flex gap-1 rounded-lg bg-dark-3 px-4 py-2;
+  }
+  .searchbar_input {
+    @apply border-none bg-dark-3 text-base-regular text-light-4 outline-none !important;
+  }
+  .pagination {
+    @apply mt-10 flex w-full items-center justify-center gap-5;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+.rhap_repeat-button {
+  color: #007f00;
+}
+.rhap_volume-button {
+  color: #007f00;
+}
+.rhap_volume-indicator {
+  background: #007f00;
+}
+.rhap_main-controls-button {
+  color: #007f00;
+}
+.rhap_progress-indicator {
+  background: #007f00;
+}
+.rhap_progress-filled {
+  background-color: #007f00;
+}
+.rhap_container {
+  background-color: #121417;
+}
+
